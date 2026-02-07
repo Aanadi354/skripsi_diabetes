@@ -60,6 +60,31 @@ elif menu == "Data":
         st.dataframe(df, use_container_width=True)
         st.write("Jumlah data:", df.shape)
 
+        # ===== Statistik Kelas =====
+        if 'DX' in df.columns:
+        class_counts = df['DX'].value_counts()
+        st.subheader("Distribusi Kelas Diagnosis")
+        col1, col2 = st.columns(2)
+        
+        
+        with col1:
+        st.write("Jumlah masing-masing kelas:")
+        st.dataframe(class_counts.rename("Jumlah"))
+        
+        
+        with col2:
+        import matplotlib.pyplot as plt
+        fig, ax = plt.subplots()
+        class_counts.plot(kind='bar', ax=ax)
+        ax.set_xlabel("Kelas")
+        ax.set_ylabel("Jumlah Pasien")
+        ax.set_title("Perbandingan Diabetes vs Non-Diabetes")
+        for i, v in enumerate(class_counts.values):
+        ax.text(i, v + (0.01 * max(class_counts.values)), str(v), ha='center')
+        st.pyplot(fig)
+        else:
+        st.warning("Kolom 'DX' tidak ditemukan pada dataset")
+
     except Exception as e:
         st.error(f"Terjadi error: {e}")
 
