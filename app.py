@@ -55,12 +55,14 @@ if menu == "Home":
 elif menu == "Data":
     st.header("Dataset Penelitian")
     try:
-        df = pd.read_excel("DATASET_SKRIPSI_AAN.xlsx")
+        df = pd.read_excel("DATASET_SKRIPSI_AAN.xlsx", engine="openpyxl")
         st.success("Dataset berhasil dimuat")
         st.dataframe(df, use_container_width=True)
         st.write("Jumlah data:", df.shape)
+
     except Exception as e:
-        st.error("File dataset.csv tidak ditemukan. Letakkan dataset pada folder yang sama dengan app.py")
+        st.error(f"Terjadi error: {e}")
+
 
 # ======================= DASHBOARD =======================
 elif menu == "Dashboard Performa Model":
