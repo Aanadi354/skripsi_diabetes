@@ -39,7 +39,7 @@ menu = st.sidebar.selectbox("Navigasi", [
 if menu == "Home":
     st.title("ANALISIS PERBANDINGAN KINERJA ADABOOST DAN XGBOOST DENGAN PENERAPAN OVERSAMPLING ADASYN PADA KLASIFIKASI DIABETES")
 
-    st.image("diabetes.jpeg", use_column_width=False, width=300)
+    st.image("diabetes.jpg", use_column_width=False, width=300)
 
     st.subheader("Latar Belakang")
     st.write("""
