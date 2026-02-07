@@ -55,7 +55,7 @@ if menu == "Home":
 elif menu == "Data":
     st.header("Dataset Penelitian")
     try:
-        df = pd.read_excel("DATASET_SKRIPSI_AAN.xlsx", engine="openpyxl")
+        df = pd.read_csv("DATASET_SKRIPSI_AAN.csv")
         st.success("Dataset berhasil dimuat")
         st.dataframe(df, use_container_width=True)
         st.write("Jumlah data:", df.shape)
