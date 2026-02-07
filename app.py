@@ -39,7 +39,7 @@ menu = st.sidebar.selectbox("Navigasi", [
 if menu == "Home":
     st.title("ANALISIS PERBANDINGAN KINERJA ADABOOST DAN XGBOOST DENGAN PENERAPAN OVERSAMPLING ADASYN PADA KLASIFIKASI DIABETES")
 
-    st.image("https://www.halodoc.com/artikel/perlu-tahu-ini-4-gejala-diabetes-tipe-2-yang-sering-diabaikan?srsltid=AfmBOopGm-19bAmcNRqtO86jsLHPVjPR9GnzD6xt-cJtInu8RhIIAjaZ", width=250)
+    st.image("diabetes.jpeg", use_column_width=False, width=300)
 
     st.subheader("Latar Belakang")
     st.write("""
