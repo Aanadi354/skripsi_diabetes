@@ -63,7 +63,6 @@ elif menu == "Data":
     except Exception as e:
         st.error(f"Terjadi error: {e}")
 
-
 # ======================= DASHBOARD =======================
 elif menu == "Dashboard Performa Model":
     st.header("Ringkasan Performa Model (Skenario 1-5)")
