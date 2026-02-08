@@ -91,69 +91,69 @@ elif menu == "Data":
             st.error(e)
 
     with tab2:
+    st.subheader("Dataset Hasil Oversampling (ADASYN)")
+
         try:
             df_over = pd.read_csv("hasil_adasyn_oversampling.csv")
+            st.success("Dataset oversampling berhasil dimuat")
     
-            st.subheader("Dataset Setelah Oversampling (ADASYN)")
-    
-            # ================= MAPPING LABEL =================
-            # DM -> 1, NON DM -> 0
-            df_over["DX_binary"] = df_over["DX"].map({
-                "DM": 1,
-                "NON DM": 0
-            })
-    
-            # ================= TABEL DATA =================
-            def highlight(row):
+            # ===== Highlight baris oversampled =====
+            def highlight_oversampled(row):
                 return [
                     "background-color: #fff3cd" if row["is_oversampled"] else ""
                     for _ in row
                 ]
     
             st.dataframe(
-                df_over.style.apply(highlight, axis=1),
+                df_over.style.apply(highlight_oversampled, axis=1),
                 use_container_width=True
             )
     
-            st.caption("🟨 Baris berwarna kuning merupakan data hasil oversampling ADASYN")
+            st.write("Jumlah data:", df_over.shape)
     
-            # ================= DISTRIBUSI KELAS =================
-            st.subheader("Distribusi Kelas Setelah Oversampling")
+            # ===== Distribusi Kelas =====
+            if "DX" in df_over.columns:
+                st.subheader("Distribusi Kelas Setelah Oversampling")
     
-            class_counts = df_over["DX_binary"].value_counts().sort_index()
+                class_counts = df_over["DX"].value_counts().sort_index()
     
-            col1, col2 = st.columns(2)
-    
-            with col1:
-                st.write("Jumlah data tiap kelas:")
-                dist_df = class_counts.rename_axis("Kelas").reset_index(name="Jumlah")
-                dist_df["Keterangan"] = dist_df["Kelas"].map({
+                # Label kelas
+                class_counts.index = class_counts.index.map({
                     0: "Non Diabetes (0)",
                     1: "Diabetes (1)"
                 })
-                st.dataframe(dist_df, use_container_width=True)
     
-            with col2:
-                fig, ax = plt.subplots()
-                class_counts.plot(kind="bar", ax=ax)
+                col1, col2 = st.columns(2)
     
-                ax.set_xlabel("Kelas")
-                ax.set_ylabel("Jumlah Data")
-                ax.set_title("Distribusi Diabetes vs Non-Diabetes Setelah ADASYN")
-                ax.set_xticklabels(["Non DM (0)", "DM (1)"], rotation=0)
+                # ===== Tabel distribusi =====
+                with col1:
+                    st.write("Jumlah data tiap kelas:")
+                    st.dataframe(class_counts.rename("Jumlah"))
     
-                for i, v in enumerate(class_counts.values):
-                    ax.text(
-                        i,
-                        v + (0.01 * max(class_counts.values)),
-                        str(v),
-                        ha="center"
-                    )
+                # ===== Bar chart =====
+                with col2:
+                    import matplotlib.pyplot as plt
     
-                st.pyplot(fig)
+                    fig, ax = plt.subplots()
+                    class_counts.plot(kind="bar", ax=ax)
+    
+                    ax.set_xlabel("Kelas")
+                    ax.set_ylabel("Jumlah Data")
+                    ax.set_title("Distribusi Diabetes vs Non-Diabetes Setelah ADASYN")
+    
+                    for i, v in enumerate(class_counts.values):
+                        ax.text(i, v + (0.01 * max(class_counts.values)), str(v), ha="center")
+    
+                    st.pyplot(fig)
+    
+            else:
+                st.warning("Kolom 'DX' tidak ditemukan pada dataset oversampling")
+    
+            st.caption("🟨 Baris berwarna kuning menandakan data hasil oversampling ADASYN")
     
         except Exception as e:
             st.error(f"Terjadi error: {e}")
+
 
 
 
