@@ -94,6 +94,8 @@ elif menu == "Data":
     try:
         df_over = pd.read_csv("hasil_adasyn_oversampling.csv")
 
+        st.subheader("Dataset Setelah Oversampling (ADASYN)")
+
         # ================= MAPPING LABEL =================
         # DM -> 1, NON DM -> 0
         df_over["DX_binary"] = df_over["DX"].map({
@@ -108,11 +110,11 @@ elif menu == "Data":
                 for _ in row
             ]
 
-        st.subheader("Dataset Setelah Oversampling (ADASYN)")
         st.dataframe(
             df_over.style.apply(highlight, axis=1),
             use_container_width=True
         )
+
         st.caption("🟨 Baris berwarna kuning merupakan data hasil oversampling ADASYN")
 
         # ================= DISTRIBUSI KELAS =================
@@ -122,20 +124,16 @@ elif menu == "Data":
 
         col1, col2 = st.columns(2)
 
-        # ===== TABEL DISTRIBUSI =====
         with col1:
             st.write("Jumlah data tiap kelas:")
             dist_df = class_counts.rename_axis("Kelas").reset_index(name="Jumlah")
             dist_df["Keterangan"] = dist_df["Kelas"].map({
-                1: "Diabetes (DM)",
-                0: "Non Diabetes (NON DM)"
+                0: "Non Diabetes (0)",
+                1: "Diabetes (1)"
             })
             st.dataframe(dist_df, use_container_width=True)
 
-        # ===== BAR CHART =====
         with col2:
-            import matplotlib.pyplot as plt
-
             fig, ax = plt.subplots()
             class_counts.plot(kind="bar", ax=ax)
 
@@ -145,12 +143,18 @@ elif menu == "Data":
             ax.set_xticklabels(["Non DM (0)", "DM (1)"], rotation=0)
 
             for i, v in enumerate(class_counts.values):
-                ax.text(i, v + (0.01 * max(class_counts.values)), str(v), ha="center")
+                ax.text(
+                    i,
+                    v + (0.01 * max(class_counts.values)),
+                    str(v),
+                    ha="center"
+                )
 
             st.pyplot(fig)
 
     except Exception as e:
-        st.error(e)
+        st.error(f"Terjadi error: {e}")
+
 
 
 # ======================= DASHBOARD =======================
