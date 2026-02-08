@@ -108,44 +108,51 @@ if menu == "Home":
 # ======================= DATASET =======================
 elif menu == "Data":
     st.header("Dataset Penelitian")
-    try:
-        df = pd.read_csv("DATASET_SKRIPSI_AAN.csv", sep=None, engine="python")
-        st.success("Dataset berhasil dimuat")
 
-        st.dataframe(df, use_container_width=True)
-        st.write("Jumlah data:", df.shape)
+    tab1, tab2 = st.tabs(["📄 Dataset Original", "🧪 Hasil Oversampling"])
 
-        # ===== Statistik Kelas =====
-        if 'DX' in df.columns:
+    with tab1:
+        try:
+            df = pd.read_csv("DATASET_SKRIPSI_AAN.csv", sep=None, engine="python")
+            st.success("Dataset berhasil dimuat")
 
-            class_counts = df['DX'].value_counts()
+            st.dataframe(df, use_container_width=True)
+            st.write("Jumlah data:", df.shape)
 
-            st.subheader("Distribusi Kelas Diagnosis")
+            if 'DX' in df.columns:
+                class_counts = df['DX'].value_counts()
 
-            col1, col2 = st.columns(2)
+                st.subheader("Distribusi Kelas Diagnosis")
+                col1, col2 = st.columns(2)
 
-            with col1:
-                st.write("Jumlah masing-masing kelas:")
-                st.dataframe(class_counts.rename("Jumlah"))
+                with col1:
+                    st.dataframe(class_counts.rename("Jumlah"))
 
-            with col2:
-                import matplotlib.pyplot as plt
-                fig, ax = plt.subplots()
-                class_counts.plot(kind='bar', ax=ax)
-                ax.set_xlabel("Kelas")
-                ax.set_ylabel("Jumlah Pasien")
-                ax.set_title("Perbandingan Diabetes vs Non-Diabetes")
+                with col2:
+                    import matplotlib.pyplot as plt
+                    fig, ax = plt.subplots()
+                    class_counts.plot(kind='bar', ax=ax)
+                    st.pyplot(fig)
+            else:
+                st.warning("Kolom 'DX' tidak ditemukan")
 
-                for i, v in enumerate(class_counts.values):
-                    ax.text(i, v + (0.01 * max(class_counts.values)), str(v), ha='center')
+        except Exception as e:
+            st.error(f"Terjadi error: {e}")
 
-                st.pyplot(fig)
+    with tab2:
+        try:
+            df_over = pd.read_csv("hasil_adasyn_oversampling.csv")
 
-        else:
-            st.warning("Kolom 'DX' tidak ditemukan pada dataset")
+            def highlight(row):
+                return [
+                    "background-color: #fff3cd" if row["is_oversampled"] else ""
+                    for _ in row
+                ]
 
-    except Exception as e:
-        st.error(f"Terjadi error: {e}")
+            st.dataframe(df_over.style.apply(highlight, axis=1))
+        except Exception as e:
+            st.error(e)
+
 
 # ======================= DASHBOARD =======================
 elif menu == "Dashboard Performa Model":
