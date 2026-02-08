@@ -91,69 +91,69 @@ elif menu == "Data":
             st.error(e)
 
     with tab2:
-    try:
-        df_over = pd.read_csv("hasil_adasyn_oversampling.csv")
-
-        st.subheader("Dataset Setelah Oversampling (ADASYN)")
-
-        # ================= MAPPING LABEL =================
-        # DM -> 1, NON DM -> 0
-        df_over["DX_binary"] = df_over["DX"].map({
-            "DM": 1,
-            "NON DM": 0
-        })
-
-        # ================= TABEL DATA =================
-        def highlight(row):
-            return [
-                "background-color: #fff3cd" if row["is_oversampled"] else ""
-                for _ in row
-            ]
-
-        st.dataframe(
-            df_over.style.apply(highlight, axis=1),
-            use_container_width=True
-        )
-
-        st.caption("🟨 Baris berwarna kuning merupakan data hasil oversampling ADASYN")
-
-        # ================= DISTRIBUSI KELAS =================
-        st.subheader("Distribusi Kelas Setelah Oversampling")
-
-        class_counts = df_over["DX_binary"].value_counts().sort_index()
-
-        col1, col2 = st.columns(2)
-
-        with col1:
-            st.write("Jumlah data tiap kelas:")
-            dist_df = class_counts.rename_axis("Kelas").reset_index(name="Jumlah")
-            dist_df["Keterangan"] = dist_df["Kelas"].map({
-                0: "Non Diabetes (0)",
-                1: "Diabetes (1)"
+        try:
+            df_over = pd.read_csv("hasil_adasyn_oversampling.csv")
+    
+            st.subheader("Dataset Setelah Oversampling (ADASYN)")
+    
+            # ================= MAPPING LABEL =================
+            # DM -> 1, NON DM -> 0
+            df_over["DX_binary"] = df_over["DX"].map({
+                "DM": 1,
+                "NON DM": 0
             })
-            st.dataframe(dist_df, use_container_width=True)
-
-        with col2:
-            fig, ax = plt.subplots()
-            class_counts.plot(kind="bar", ax=ax)
-
-            ax.set_xlabel("Kelas")
-            ax.set_ylabel("Jumlah Data")
-            ax.set_title("Distribusi Diabetes vs Non-Diabetes Setelah ADASYN")
-            ax.set_xticklabels(["Non DM (0)", "DM (1)"], rotation=0)
-
-            for i, v in enumerate(class_counts.values):
-                ax.text(
-                    i,
-                    v + (0.01 * max(class_counts.values)),
-                    str(v),
-                    ha="center"
-                )
-
-            st.pyplot(fig)
-
-    except Exception as e:
-        st.error(f"Terjadi error: {e}")
+    
+            # ================= TABEL DATA =================
+            def highlight(row):
+                return [
+                    "background-color: #fff3cd" if row["is_oversampled"] else ""
+                    for _ in row
+                ]
+    
+            st.dataframe(
+                df_over.style.apply(highlight, axis=1),
+                use_container_width=True
+            )
+    
+            st.caption("🟨 Baris berwarna kuning merupakan data hasil oversampling ADASYN")
+    
+            # ================= DISTRIBUSI KELAS =================
+            st.subheader("Distribusi Kelas Setelah Oversampling")
+    
+            class_counts = df_over["DX_binary"].value_counts().sort_index()
+    
+            col1, col2 = st.columns(2)
+    
+            with col1:
+                st.write("Jumlah data tiap kelas:")
+                dist_df = class_counts.rename_axis("Kelas").reset_index(name="Jumlah")
+                dist_df["Keterangan"] = dist_df["Kelas"].map({
+                    0: "Non Diabetes (0)",
+                    1: "Diabetes (1)"
+                })
+                st.dataframe(dist_df, use_container_width=True)
+    
+            with col2:
+                fig, ax = plt.subplots()
+                class_counts.plot(kind="bar", ax=ax)
+    
+                ax.set_xlabel("Kelas")
+                ax.set_ylabel("Jumlah Data")
+                ax.set_title("Distribusi Diabetes vs Non-Diabetes Setelah ADASYN")
+                ax.set_xticklabels(["Non DM (0)", "DM (1)"], rotation=0)
+    
+                for i, v in enumerate(class_counts.values):
+                    ax.text(
+                        i,
+                        v + (0.01 * max(class_counts.values)),
+                        str(v),
+                        ha="center"
+                    )
+    
+                st.pyplot(fig)
+    
+        except Exception as e:
+            st.error(f"Terjadi error: {e}")
 
 
 
