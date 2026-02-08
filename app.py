@@ -91,7 +91,7 @@ elif menu == "Data":
             st.error(e)
 
     with tab2:
-    st.subheader("Dataset Hasil Oversampling (ADASYN)")
+        st.subheader("Dataset Hasil Oversampling (ADASYN)")
 
         try:
             df_over = pd.read_csv("hasil_adasyn_oversampling.csv")
