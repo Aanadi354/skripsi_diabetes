@@ -117,7 +117,6 @@ elif menu == "Dataset":
         st.subheader("Dataset Hasil Normalisasi")
         try:
             df_norm = pd.read_csv("data_preprocessed_normalized.csv")
-            st.markdown("<h3 style='color:#1f77b4'>Dataset Hasil Normalisasi</h3>", unsafe_allow_html=True)
             st.dataframe(df_norm, use_container_width=True)
             st.write("Jumlah data:", df_norm.shape)
         except Exception as e:
