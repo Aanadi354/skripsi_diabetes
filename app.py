@@ -58,10 +58,10 @@ if menu == "Home":
     """)
 
 # ======================= DATASET =======================
-elif menu == "Data":
+elif menu == "Dataset":
     st.header("Dataset Penelitian")
 
-    tab1, tab2, tab3 = st.tabs(["📄 Dataset Original", "📚 Penjelasan Fitur", "🧪 Hasil Oversampling"])
+    tab1, tab2, tab3 = st.tabs(["Dataset Original", "Penjelasan Fitur", "Hasil Oversampling"])
 
     with tab1:
         try:
