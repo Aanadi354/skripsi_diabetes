@@ -61,7 +61,7 @@ if menu == "Home":
 elif menu == "Dataset":
     st.header("Dataset Penelitian")
 
-    tab1, tab2, tab3 = st.tabs(["Dataset Original", "Penjelasan Fitur", "Hasil Oversampling"])
+    tab1, tab2, tab3, tab4 = st.tabs(["Dataset Original", "Penjelasan Fitur", "Dataset Hasil Normalisasi", "Hasil Oversampling"])
 
     with tab1:
         try:
@@ -112,8 +112,18 @@ elif menu == "Dataset":
         })
         st.dataframe(fitur_df, use_container_width=True)
         st.info("Tab ini membantu pengguna memahami arti setiap variabel medis sebelum melihat hasil model.")
-
+        
     with tab3:
+        st.subheader("Dataset Hasil Normalisasi")
+        try:
+            df_norm = pd.read_csv("data_preprocessed_normalized.csv")
+            st.markdown("<h3 style='color:#1f77b4'>Dataset Hasil Normalisasi</h3>", unsafe_allow_html=True)
+            st.dataframe(df_norm, use_container_width=True)
+            st.write("Jumlah data:", df_norm.shape)
+        except Exception as e:
+            st.error(f"Terjadi error saat memuat dataset normalisasi: {e}")
+
+    with tab4:
         st.subheader("Dataset Hasil Oversampling (ADASYN)")
 
         try:
