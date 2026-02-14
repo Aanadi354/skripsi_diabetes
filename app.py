@@ -25,7 +25,6 @@ data_summary = [
     {'Skenario': 'Skenario 2', 'Model': 'AdaBoost + ADASYN', 'Accuracy': 0.9407, 'CV Accuracy': 0.9304, 'Precision': 0.9639, 'Recall': 0.9524, 'F1-Score': 0.9581},
     {'Skenario': 'Skenario 3', 'Model': 'XGBoost (Ori)', 'Accuracy': 0.9831, 'CV Accuracy': 0.9779, 'Precision': 0.9767, 'Recall': 1.0000, 'F1-Score': 0.9882},
     {'Skenario': 'Skenario 4', 'Model': 'XGBoost + ADASYN', 'Accuracy': 0.9746, 'CV Accuracy': 0.9405, 'Precision': 0.9765, 'Recall': 0.9881, 'F1-Score': 0.9822},
-    {'Skenario': 'Skenario 5', 'Model': 'AdaBoost + Tuning', 'Accuracy': 0.9661, 'CV Accuracy': 0.9389, 'Precision': 0.9651, 'Recall': 0.9881, 'F1-Score': 0.9765},
 ]
 
 df_summary = pd.DataFrame(data_summary)
