@@ -35,7 +35,7 @@ menu = st.sidebar.selectbox(
     "Navigasi",
     [
         "Home",
-        "Data",
+        "Dataset",
         "Dashboard Performa Model",
         "Prediksi Diagnosis"
     ]
