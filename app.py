@@ -61,7 +61,7 @@ if menu == "Home":
 elif menu == "Data":
     st.header("Dataset Penelitian")
 
-    tab1, tab2 = st.tabs(["📄 Dataset Original", "🧪 Hasil Oversampling"])
+    tab1, tab2, tab3 = st.tabs(["📄 Dataset Original", "📚 Penjelasan Fitur", "🧪 Hasil Oversampling"])
 
     with tab1:
         try:
@@ -91,71 +91,77 @@ elif menu == "Data":
             st.error(e)
 
     with tab2:
+        st.subheader("Penjelasan Fitur Dataset")
+        fitur_df = pd.DataFrame({
+            "Fitur": [
+                "Umur", "JK", "IMT", "Lingkar Perut", "Sistolik", "Diastolik",
+                "HbA1c", "GDPuasa", "GD2PP", "DX"
+            ],
+            "Keterangan": [
+                "Usia pasien dalam tahun",
+                "Jenis kelamin (0=Laki-laki, 1=Perempuan)",
+                "Indeks Massa Tubuh (kg/m²)",
+                "Lingkar perut (cm) indikator obesitas sentral",
+                "Tekanan darah sistolik (mmHg)",
+                "Tekanan darah diastolik (mmHg)",
+                "Kadar HbA1c (%) rata-rata gula darah 3 bulan",
+                "Glukosa darah puasa (mg/dL)",
+                "Glukosa darah 2 jam setelah makan (mg/dL)",
+                "Label diagnosis (0=Non Diabetes, 1=Diabetes)"
+            ]
+        })
+        st.dataframe(fitur_df, use_container_width=True)
+        st.info("Tab ini membantu pengguna memahami arti setiap variabel medis sebelum melihat hasil model.")
+
+    with tab3:
         st.subheader("Dataset Hasil Oversampling (ADASYN)")
 
         try:
             df_over = pd.read_csv("hasil_adasyn_oversampling.csv")
             st.success("Dataset oversampling berhasil dimuat")
-    
-            # ===== Highlight baris oversampled =====
+
             def highlight_oversampled(row):
                 return [
                     "background-color: #fff3cd" if row["is_oversampled"] else ""
                     for _ in row
                 ]
-    
+
             st.dataframe(
                 df_over.style.apply(highlight_oversampled, axis=1),
                 use_container_width=True
             )
-    
+
             st.write("Jumlah data:", df_over.shape)
-    
-            # ===== Distribusi Kelas =====
+
             if "DX" in df_over.columns:
                 st.subheader("Distribusi Kelas Setelah Oversampling")
-    
+
                 class_counts = df_over["DX"].value_counts().sort_index()
-    
-                # Label kelas
-                class_counts.index = class_counts.index.map({
-                    0: "Non Diabetes (0)",
-                    1: "Diabetes (1)"
-                })
-    
+                class_counts.index = class_counts.index.map({0: "Non Diabetes (0)", 1: "Diabetes (1)"})
+
                 col1, col2 = st.columns(2)
-    
-                # ===== Tabel distribusi =====
+
                 with col1:
                     st.write("Jumlah data tiap kelas:")
                     st.dataframe(class_counts.rename("Jumlah"))
-    
-                # ===== Bar chart =====
+
                 with col2:
-                    import matplotlib.pyplot as plt
-    
                     fig, ax = plt.subplots()
                     class_counts.plot(kind="bar", ax=ax)
-    
                     ax.set_xlabel("Kelas")
                     ax.set_ylabel("Jumlah Data")
                     ax.set_title("Distribusi Diabetes vs Non-Diabetes Setelah ADASYN")
-    
                     for i, v in enumerate(class_counts.values):
                         ax.text(i, v + (0.01 * max(class_counts.values)), str(v), ha="center")
-    
                     st.pyplot(fig)
-    
+
             else:
                 st.warning("Kolom 'DX' tidak ditemukan pada dataset oversampling")
-    
+
             st.caption("🟨 Baris berwarna kuning menandakan data hasil oversampling ADASYN")
-    
+
         except Exception as e:
             st.error(f"Terjadi error: {e}")
-
-
-
 
 # ======================= DASHBOARD =======================
 elif menu == "Dashboard Performa Model":
@@ -210,13 +216,8 @@ else:
     if submit:
         jk_val = 0 if jk == "Laki-laki" else 1
 
-        input_df = pd.DataFrame([[
-            umur, jk_val, imt, lingkar_perut,
-            sistolik, diastolik, hba1c, gd_puasa, gd_2pp
-        ]], columns=[
-            "Umur", "JK", "IMT", "Lingkar Perut",
-            "Sistolik", "Diastolik", "Hba1c", "GDPuasa", "GD2PP"
-        ])
+        input_df = pd.DataFrame([[umur, jk_val, imt, lingkar_perut, sistolik, diastolik, hba1c, gd_puasa, gd_2pp]],
+                                columns=["Umur", "JK", "IMT", "Lingkar Perut", "Sistolik", "Diastolik", "Hba1c", "GDPuasa", "GD2PP"])
 
         num_cols = input_df.columns.drop("JK")
         input_df[num_cols] = scaler.transform(input_df[num_cols])
