@@ -33,22 +33,22 @@ cm_data = [
     {
         "Skenario": "AdaBoost (Ori)",
         "TN": 232, "FP": 5, "FN": 3, "TP": 252,
-        "Accuracy": 0.9746, "Presisi": 0.9765, "Recall": 0.9881, "F1": 0.9822
+        "Accuracy": 0.9746, "Precision": 0.9765, "Recall": 0.9881, "F1": 0.9822
     },
     {
         "Skenario": "AdaBoost + ADASYN",
         "TN": 222, "FP": 15, "FN": 12, "TP": 240,
-        "Accuracy": 0.9407, "Presisi": 0.9639, "Recall": 0.9524, "F1": 0.9581
+        "Accuracy": 0.9407, "Precision": 0.9639, "Recall": 0.9524, "F1": 0.9581
     },
     {
         "Skenario": "XGBoost (Ori)",
         "TN": 235, "FP": 2, "FN": 0, "TP": 255,
-        "Accuracy": 0.9831, "Presisi": 0.9767, "Recall": 1.0000, "F1": 0.9882
+        "Accuracy": 0.9831, "Precision": 0.9767, "Recall": 1.0000, "F1": 0.9882
     },
     {
         "Skenario": "XGBoost + ADASYN",
         "TN": 232, "FP": 5, "FN": 3, "TP": 252,
-        "Accuracy": 0.9746, "Presisi": 0.9765, "Recall": 0.9881, "F1": 0.9822
+        "Accuracy": 0.9746, "Precision": 0.9765, "Recall": 0.9881, "F1": 0.9822
     }
 ]
 
@@ -296,17 +296,18 @@ elif menu == "Dashboard Performa Model":
         # ================= BAGAN PERBANDINGAN =================
         st.write("### 📈 Grafik Perbandingan Kinerja")
 
-        metrics = ["Accuracy", "Presisi", "Recall", "F1"]
+        metrics = ["Accuracy", "Precision", "Recall", "F1"]
 
-        fig, axes = plt.subplots(1, 3, figsize=(18, 5))
-
+        fig, axes = plt.subplots(1, len(metrics), figsize=(20, 5))
+        
         for i, metric in enumerate(metrics):
             axes[i].bar(df_cm["Skenario"], df_cm[metric])
             axes[i].set_title(metric)
             axes[i].set_ylim(0.9, 1.01)
             axes[i].tick_params(axis='x', rotation=45)
-
+        
         st.pyplot(fig)
+
 
         # ================= BAGAN CONFUSION MATRIX =================
         # st.write("### 📊 Perbandingan Nilai Confusion Matrix")
