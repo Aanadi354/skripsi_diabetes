@@ -33,22 +33,22 @@ cm_data = [
     {
         "Skenario": "AdaBoost (Ori)",
         "TN": 232, "FP": 5, "FN": 3, "TP": 252,
-        "Accuracy": 0.9746, "Recall": 0.9881, "F1": 0.9822
+        "Accuracy": 0.9746, "Presisi": 0.9765, "Recall": 0.9881, "F1": 0.9822
     },
     {
         "Skenario": "AdaBoost + ADASYN",
         "TN": 222, "FP": 15, "FN": 12, "TP": 240,
-        "Accuracy": 0.9407, "Recall": 0.9524, "F1": 0.9581
+        "Accuracy": 0.9407, "Presisi": 0.9639, "Recall": 0.9524, "F1": 0.9581
     },
     {
         "Skenario": "XGBoost (Ori)",
         "TN": 235, "FP": 2, "FN": 0, "TP": 255,
-        "Accuracy": 0.9831, "Recall": 1.0000, "F1": 0.9882
+        "Accuracy": 0.9831, "Presisi": 0.9767, "Recall": 1.0000, "F1": 0.9882
     },
     {
         "Skenario": "XGBoost + ADASYN",
         "TN": 232, "FP": 5, "FN": 3, "TP": 252,
-        "Accuracy": 0.9746, "Recall": 0.9881, "F1": 0.9822
+        "Accuracy": 0.9746, "Presisi": 0.9765, "Recall": 0.9881, "F1": 0.9822
     }
 ]
 
@@ -309,20 +309,20 @@ elif menu == "Dashboard Performa Model":
         st.pyplot(fig)
 
         # ================= BAGAN CONFUSION MATRIX =================
-        st.write("### 📊 Perbandingan Nilai Confusion Matrix")
+        # st.write("### 📊 Perbandingan Nilai Confusion Matrix")
 
-        cm_values = ["TP", "TN", "FP", "FN"]
+        # cm_values = ["TP", "TN", "FP", "FN"]
 
-        fig2, ax = plt.subplots(figsize=(10,6))
+        # fig2, ax = plt.subplots(figsize=(10,6))
 
-        for val in cm_values:
-            ax.plot(df_cm["Skenario"], df_cm[val], marker="o", label=val)
+        # for val in cm_values:
+        #     ax.plot(df_cm["Skenario"], df_cm[val], marker="o", label=val)
 
-        ax.legend()
-        ax.set_title("Perbandingan Nilai Confusion Matrix")
-        ax.tick_params(axis='x', rotation=45)
+        # ax.legend()
+        # ax.set_title("Perbandingan Nilai Confusion Matrix")
+        # ax.tick_params(axis='x', rotation=45)
 
-        st.pyplot(fig2)
+        # st.pyplot(fig2)
 
 
 
