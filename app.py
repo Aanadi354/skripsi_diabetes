@@ -296,7 +296,7 @@ elif menu == "Dashboard Performa Model":
         # ================= BAGAN PERBANDINGAN =================
         st.write("### 📈 Grafik Perbandingan Kinerja")
 
-        metrics = ["Accuracy", "Recall", "F1"]
+        metrics = ["Accuracy", "Presisi", "Recall", "F1"]
 
         fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 
