@@ -28,6 +28,32 @@ data_summary = [
 ]
 
 df_summary = pd.DataFrame(data_summary)
+# ================= CONFUSION MATRIX SUMMARY =================
+cm_data = [
+    {
+        "Skenario": "AdaBoost (Ori)",
+        "TN": 232, "FP": 5, "FN": 3, "TP": 252,
+        "Accuracy": 0.9746, "Recall": 0.9881, "F1": 0.9822
+    },
+    {
+        "Skenario": "AdaBoost + ADASYN",
+        "TN": 222, "FP": 15, "FN": 12, "TP": 240,
+        "Accuracy": 0.9407, "Recall": 0.9524, "F1": 0.9581
+    },
+    {
+        "Skenario": "XGBoost (Ori)",
+        "TN": 235, "FP": 2, "FN": 0, "TP": 255,
+        "Accuracy": 0.9831, "Recall": 1.0000, "F1": 0.9882
+    },
+    {
+        "Skenario": "XGBoost + ADASYN",
+        "TN": 232, "FP": 5, "FN": 3, "TP": 252,
+        "Accuracy": 0.9746, "Recall": 0.9881, "F1": 0.9822
+    }
+]
+
+df_cm = pd.DataFrame(cm_data)
+
 
 # ======================= SIDEBAR MENU =======================
 menu = st.sidebar.selectbox(
@@ -175,11 +201,12 @@ elif menu == "Dataset":
 elif menu == "Dashboard Performa Model":
     st.header("Dashboard Evaluasi Model")
 
-    tab1, tab2, tab3, tab4 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5 = st.tabs([
         "AdaBoost (Original)",
         "AdaBoost + ADASYN",
         "XGBoost (Original)",
-        "XGBoost + ADASYN"
+        "XGBoost + ADASYN",
+        "Rangkuman Hasil Skenario Uji Coba"
     ])
 
     # ================= TAB 1 =================
@@ -246,6 +273,57 @@ elif menu == "Dashboard Performa Model":
         Oversampling ADASYN tidak meningkatkan performa XGBoost secara signifikan.
         Hal ini menunjukkan model sudah mampu menangani imbalance data dengan baik.
         """)
+        # ================= TAB 5 =================
+    with tab5:
+        st.subheader("Rangkuman Hasil Seluruh Skenario")
+
+        st.write("### 📊 Tabel Confusion Matrix & Performa")
+
+        # Highlight best accuracy
+        best_acc = df_cm["Accuracy"].max()
+
+        def highlight_best(row):
+            color = "background-color: yellow" if row["Accuracy"] == best_acc else ""
+            return [color]*len(row)
+
+        st.dataframe(
+            df_cm.style.apply(highlight_best, axis=1),
+            use_container_width=True
+        )
+
+        st.caption("🟨 Warna kuning menunjukkan model dengan performa terbaik")
+
+        # ================= BAGAN PERBANDINGAN =================
+        st.write("### 📈 Grafik Perbandingan Kinerja")
+
+        metrics = ["Accuracy", "Recall", "F1"]
+
+        fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+
+        for i, metric in enumerate(metrics):
+            axes[i].bar(df_cm["Skenario"], df_cm[metric])
+            axes[i].set_title(metric)
+            axes[i].set_ylim(0.9, 1.01)
+            axes[i].tick_params(axis='x', rotation=45)
+
+        st.pyplot(fig)
+
+        # ================= BAGAN CONFUSION MATRIX =================
+        st.write("### 📊 Perbandingan Nilai Confusion Matrix")
+
+        cm_values = ["TP", "TN", "FP", "FN"]
+
+        fig2, ax = plt.subplots(figsize=(10,6))
+
+        for val in cm_values:
+            ax.plot(df_cm["Skenario"], df_cm[val], marker="o", label=val)
+
+        ax.legend()
+        ax.set_title("Perbandingan Nilai Confusion Matrix")
+        ax.tick_params(axis='x', rotation=45)
+
+        st.pyplot(fig2)
+
 
 
 # ======================= PREDIKSI =======================
