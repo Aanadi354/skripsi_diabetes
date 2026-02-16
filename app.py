@@ -173,31 +173,80 @@ elif menu == "Dataset":
 
 # ======================= DASHBOARD =======================
 elif menu == "Dashboard Performa Model":
-    st.header("Ringkasan Performa Model")
+    st.header("Dashboard Evaluasi Model")
 
-    st.dataframe(
-        df_summary.style.highlight_max(
-            axis=0,
-            subset=["Accuracy", "Recall", "F1-Score"]
-        ),
-        use_container_width=True
-    )
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "AdaBoost (Original)",
+        "AdaBoost + ADASYN",
+        "XGBoost (Original)",
+        "XGBoost + ADASYN"
+    ])
 
-    metrics = ["Accuracy", "Recall", "F1-Score"]
-    fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+    # ================= TAB 1 =================
+    with tab1:
+        st.subheader("Confusion Matrix AdaBoost (Original)")
+        st.image("cm_adaboost_ori.png", use_container_width=True)
 
-    for i, metric in enumerate(metrics):
-        sns.barplot(
-            x="Skenario",
-            y=metric,
-            data=df_summary,
-            ax=axes[i],
-            palette="magma"
-        )
-        axes[i].set_ylim(0.85, 1.02)
-        axes[i].set_title(metric)
+        st.markdown("""
+        ### 📊 Interpretasi Hasil
+        - Accuracy : **97.46%**
+        - Recall : **98.81%**
+        - Precision : **97.65%**
+        - F1 Score : **98.22%**
 
-    st.pyplot(fig)
+        Model AdaBoost tanpa oversampling sudah memiliki performa sangat baik.
+        Tingkat recall tinggi menunjukkan model mampu mendeteksi hampir semua
+        kasus diabetes dengan benar.
+        """)
+
+    # ================= TAB 2 =================
+    with tab2:
+        st.subheader("Confusion Matrix AdaBoost + ADASYN")
+        st.image("cm_adaboost_adasyn.png", use_container_width=True)
+
+        st.markdown("""
+        ### 📊 Interpretasi Hasil
+        - Accuracy : **94.07%**
+        - Recall : **95.24%**
+        - Precision : **96.39%**
+        - F1 Score : **95.81%**
+
+        Setelah penerapan ADASYN, distribusi data menjadi lebih seimbang.
+        Namun accuracy sedikit menurun karena adanya data sintetis.
+        """)
+
+    # ================= TAB 3 =================
+    with tab3:
+        st.subheader("Confusion Matrix XGBoost (Original)")
+        st.image("cm_xgboost_ori.png", use_container_width=True)
+
+        st.markdown("""
+        ### 📊 Interpretasi Hasil
+        - Accuracy : **98.31%**
+        - Recall : **100%**
+        - Precision : **97.67%**
+        - F1 Score : **98.82%**
+
+        XGBoost original menghasilkan performa terbaik.
+        Recall mencapai 100% artinya semua pasien diabetes berhasil terdeteksi.
+        """)
+
+    # ================= TAB 4 =================
+    with tab4:
+        st.subheader("Confusion Matrix XGBoost + ADASYN")
+        st.image("cm_xgboost_adasyn.png", use_container_width=True)
+
+        st.markdown("""
+        ### 📊 Interpretasi Hasil
+        - Accuracy : **97.46%**
+        - Recall : **98.81%**
+        - Precision : **97.65%**
+        - F1 Score : **98.22%**
+
+        Oversampling ADASYN tidak meningkatkan performa XGBoost secara signifikan.
+        Hal ini menunjukkan model sudah mampu menangani imbalance data dengan baik.
+        """)
+
 
 # ======================= PREDIKSI =======================
 else:
