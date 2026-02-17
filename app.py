@@ -32,22 +32,22 @@ df_summary = pd.DataFrame(data_summary)
 cm_data = [
     {
         "Skenario": "AdaBoost (Ori)",
-        "TN": 232, "FP": 5, "FN": 3, "TP": 252,
+        "TN": 83, "FP": 2, "FN": 1, "TP": 32,
         "Accuracy": 0.9746, "Precision": 0.9765, "Recall": 0.9881, "F1": 0.9822
     },
     {
         "Skenario": "AdaBoost + ADASYN",
-        "TN": 222, "FP": 15, "FN": 12, "TP": 240,
+        "TN": 80, "FP": 3, "FN": 4, "TP": 31,
         "Accuracy": 0.9407, "Precision": 0.9639, "Recall": 0.9524, "F1": 0.9581
     },
     {
         "Skenario": "XGBoost (Ori)",
-        "TN": 235, "FP": 2, "FN": 0, "TP": 255,
+        "TN": 84, "FP": 2, "FN": 0, "TP": 32,
         "Accuracy": 0.9831, "Precision": 0.9767, "Recall": 1.0000, "F1": 0.9882
     },
     {
         "Skenario": "XGBoost + ADASYN",
-        "TN": 232, "FP": 5, "FN": 3, "TP": 252,
+        "TN": 83, "FP": 2, "FN": 1, "TP": 32,
         "Accuracy": 0.9746, "Precision": 0.9765, "Recall": 0.9881, "F1": 0.9822
     }
 ]
