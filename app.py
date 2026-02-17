@@ -211,9 +211,14 @@ elif menu == "Dashboard Performa Model":
 
     # ================= TAB 1 =================
     with tab1:
-        st.subheader("Confusion Matrix AdaBoost (Original)")
-        st.image("cm_adaboost_ori.png", use_container_width=True)
+    st.subheader("Confusion Matrix AdaBoost (Original)")
 
+    col1, col2 = st.columns([1, 2])  # kiri kecil, kanan lebih lebar
+
+    with col1:
+        st.image("cm_adaboost_ori.png", width=300)  # kecilkan gambar
+
+    with col2:
         st.markdown("""
         ### 📊 Interpretasi Hasil
         - Accuracy : **97.46%**
@@ -225,6 +230,7 @@ elif menu == "Dashboard Performa Model":
         Tingkat recall tinggi menunjukkan model mampu mendeteksi hampir semua
         kasus diabetes dengan benar.
         """)
+
 
     # ================= TAB 2 =================
     with tab2:
