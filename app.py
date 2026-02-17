@@ -211,25 +211,25 @@ elif menu == "Dashboard Performa Model":
 
     # ================= TAB 1 =================
     with tab1:
-    st.subheader("Confusion Matrix AdaBoost (Original)")
-
-    col1, col2 = st.columns([1, 2])  # kiri kecil, kanan lebih lebar
-
-    with col1:
-        st.image("cm_adaboost_ori.png", width=300)  # kecilkan gambar
-
-    with col2:
-        st.markdown("""
-        ### 📊 Interpretasi Hasil
-        - Accuracy : **97.46%**
-        - Recall : **98.81%**
-        - Precision : **97.65%**
-        - F1 Score : **98.22%**
-
-        Model AdaBoost tanpa oversampling sudah memiliki performa sangat baik.
-        Tingkat recall tinggi menunjukkan model mampu mendeteksi hampir semua
-        kasus diabetes dengan benar.
-        """)
+        st.subheader("Confusion Matrix AdaBoost (Original)")
+    
+        col1, col2 = st.columns([1, 2])  # kiri kecil, kanan lebih lebar
+    
+        with col1:
+            st.image("cm_adaboost_ori.png", width=300)  # kecilkan gambar
+    
+        with col2:
+            st.markdown("""
+            ### 📊 Interpretasi Hasil
+            - Accuracy : **97.46%**
+            - Recall : **98.81%**
+            - Precision : **97.65%**
+            - F1 Score : **98.22%**
+    
+            Model AdaBoost tanpa oversampling sudah memiliki performa sangat baik.
+            Tingkat recall tinggi menunjukkan model mampu mendeteksi hampir semua
+            kasus diabetes dengan benar.
+            """)
 
 
     # ================= TAB 2 =================
