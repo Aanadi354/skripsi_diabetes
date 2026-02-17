@@ -216,7 +216,7 @@ elif menu == "Dashboard Performa Model":
         col1, col2 = st.columns([1, 2])  # kiri kecil, kanan lebih lebar
     
         with col1:
-            st.image("cm_adaboost_ori.png", width=300)  # kecilkan gambar
+            st.image("cm_adaboost_ori.png", width=450)  # kecilkan gambar
     
         with col2:
             st.markdown("""
