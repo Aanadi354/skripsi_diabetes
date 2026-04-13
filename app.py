@@ -81,14 +81,7 @@ df_cm = pd.DataFrame(cm_data)
 
 # ======================= SIDEBAR MENU =======================
 # Fungsi load gambar
-st.sidebar.markdown(
-    f"""
-    <div style="text-align: center;">
-        <img src="data:image/png;base64,{logo_base64}" width="150">
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.sidebar.image("LOGO UTM.png", width=120)
 
 # ================= SIDEBAR CUSTOM =================
 st.sidebar.markdown(
