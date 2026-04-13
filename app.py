@@ -81,6 +81,8 @@ df_cm = pd.DataFrame(cm_data)
 # ======================= SIDEBAR MENU =======================
 import streamlit as st
 
+st.sidebar.image("LOGO UTM.png", use_container_width=True)
+
 # ================= SIDEBAR CUSTOM =================
 st.sidebar.markdown("## MENU")
 st.sidebar.markdown("---")
@@ -96,9 +98,6 @@ def set_menu(menu_name):
 # Tombol menu
 if st.sidebar.button(" HOME", use_container_width=True):
     set_menu("Home")
-
-if st.sidebar.button(" BI", use_container_width=True):
-    set_menu("BI")
 
 if st.sidebar.button(" DATASET", use_container_width=True):
     set_menu("Dataset")
