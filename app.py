@@ -81,11 +81,14 @@ df_cm = pd.DataFrame(cm_data)
 
 # ======================= SIDEBAR MENU =======================
 # Fungsi load gambar
-def get_base64_image(image_path):
-    with open(image_path, "rb") as img:
-        return base64.b64encode(img.read()).decode()
-
-logo_base64 = get_base64_image("LOGO UTM.png")
+st.sidebar.markdown(
+    f"""
+    <div style="text-align: center;">
+        <img src="data:image/png;base64,{logo_base64}" width="150">
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # ================= SIDEBAR CUSTOM =================
 st.sidebar.markdown(
