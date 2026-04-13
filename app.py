@@ -5,6 +5,29 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+st.markdown("""
+<style>
+/* Sidebar background */
+section[data-testid="stSidebar"] {
+    background-color: #f5f5f5;
+}
+
+/* Tombol */
+.stButton > button {
+    border-radius: 10px;
+    height: 45px;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Hover effect */
+.stButton > button:hover {
+    background-color: #ff4b4b;
+    color: white;
+}
+</style>
+""", unsafe_allow_html=True)
+
 st.set_page_config(
     page_title="Diabetes Mellitus Diagnostic App",
     layout="wide"
@@ -59,7 +82,7 @@ df_cm = pd.DataFrame(cm_data)
 import streamlit as st
 
 # ================= SIDEBAR CUSTOM =================
-st.sidebar.markdown("## 📺 MENU")
+st.sidebar.markdown("## MENU")
 st.sidebar.markdown("---")
 
 # Inisialisasi session state
@@ -71,19 +94,19 @@ def set_menu(menu_name):
     st.session_state.menu = menu_name
 
 # Tombol menu
-if st.sidebar.button("🏠 HOME", use_container_width=True):
+if st.sidebar.button(" HOME", use_container_width=True):
     set_menu("Home")
 
-if st.sidebar.button("📊 BI", use_container_width=True):
+if st.sidebar.button(" BI", use_container_width=True):
     set_menu("BI")
 
-if st.sidebar.button("📂 DATASET", use_container_width=True):
+if st.sidebar.button(" DATASET", use_container_width=True):
     set_menu("Dataset")
 
-if st.sidebar.button("🤖 MODELING", use_container_width=True):
+if st.sidebar.button(" MODELING", use_container_width=True):
     set_menu("Dashboard Performa Model")
 
-if st.sidebar.button("📈 PREDIKSI", use_container_width=True):
+if st.sidebar.button(" PREDIKSI", use_container_width=True):
     set_menu("Prediksi Diagnosis")
 
 # Ambil menu aktif
