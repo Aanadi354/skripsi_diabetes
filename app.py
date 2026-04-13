@@ -56,15 +56,38 @@ df_cm = pd.DataFrame(cm_data)
 
 
 # ======================= SIDEBAR MENU =======================
-menu = st.sidebar.radio(
-    "Navigasi",
-    [
-        "Home",
-        "Dataset",
-        "Dashboard Performa Model",
-        "Prediksi Diagnosis"
-    ]
-)
+import streamlit as st
+
+# ================= SIDEBAR CUSTOM =================
+st.sidebar.markdown("## 📺 MENU")
+st.sidebar.markdown("---")
+
+# Inisialisasi session state
+if "menu" not in st.session_state:
+    st.session_state.menu = "Home"
+
+# Fungsi untuk ubah menu
+def set_menu(menu_name):
+    st.session_state.menu = menu_name
+
+# Tombol menu
+if st.sidebar.button("🏠 HOME", use_container_width=True):
+    set_menu("Home")
+
+if st.sidebar.button("📊 BI", use_container_width=True):
+    set_menu("BI")
+
+if st.sidebar.button("📂 DATASET", use_container_width=True):
+    set_menu("Dataset")
+
+if st.sidebar.button("🤖 MODELING", use_container_width=True):
+    set_menu("Dashboard Performa Model")
+
+if st.sidebar.button("📈 PREDIKSI", use_container_width=True):
+    set_menu("Prediksi Diagnosis")
+
+# Ambil menu aktif
+menu = st.session_state.menu
 
 # ======================= HOME =======================
 if menu == "Home":
