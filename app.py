@@ -80,11 +80,21 @@ df_cm = pd.DataFrame(cm_data)
 
 # ======================= SIDEBAR MENU =======================
 import streamlit as st
-
-st.sidebar.image("LOGO UTM.png", use_container_width=True)
-
+st.sidebar.markdown(
+    """
+    <div style="text-align: center;">
+        <img src="data:image/png;base64,{}" width="120">
+    </div>
+    """.format(
+        base64.b64encode(open("LOGO UTM.png", "rb").read()).decode()
+    ),
+    unsafe_allow_html=True
+)
 # ================= SIDEBAR CUSTOM =================
-st.sidebar.markdown("## MENU")
+st.sidebar.markdown(
+    "<h3 style='text-align: center;'>MENU</h3>",
+    unsafe_allow_html=True
+)
 st.sidebar.markdown("---")
 
 # Inisialisasi session state
