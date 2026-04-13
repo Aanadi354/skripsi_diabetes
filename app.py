@@ -56,7 +56,7 @@ df_cm = pd.DataFrame(cm_data)
 
 
 # ======================= SIDEBAR MENU =======================
-menu = st.sidebar.selectbox(
+menu = st.sidebar.radio(
     "Navigasi",
     [
         "Home",
