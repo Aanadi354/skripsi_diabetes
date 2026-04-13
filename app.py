@@ -79,17 +79,13 @@ df_cm = pd.DataFrame(cm_data)
 
 
 # ======================= SIDEBAR MENU =======================
-import streamlit as st
-st.sidebar.markdown(
-    """
-    <div style="text-align: center;">
-        <img src="data:image/png;base64,{}" width="120">
-    </div>
-    """.format(
-        base64.b64encode(open("LOGO UTM.png", "rb").read()).decode()
-    ),
-    unsafe_allow_html=True
-)
+# Fungsi load gambar
+def get_base64_image(image_path):
+    with open(image_path, "rb") as img:
+        return base64.b64encode(img.read()).decode()
+
+logo_base64 = get_base64_image("LOGO UTM.png")
+
 # ================= SIDEBAR CUSTOM =================
 st.sidebar.markdown(
     "<h3 style='text-align: center;'>MENU</h3>",
