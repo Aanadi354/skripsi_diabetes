@@ -119,23 +119,25 @@ menu = st.session_state.menu
 import streamlit as st
 
 # ======================= HOME =======================
+import streamlit as st
+
+# ======================= HOME =======================
 if menu == "Home":
 
-    st.title("🩺 Analisis Perbandingan Kinerja AdaBoost dan XGBoost")
-    st.subheader("Dengan Penerapan Oversampling ADASYN pada Klasifikasi Diabetes")
+    st.title("🩺 Sistem Prediksi Diabetes Mellitus")
+    st.subheader("Menggunakan Model Machine Learning XGBoost")
 
     col1, col2 = st.columns([2,1])
 
     with col1:
         st.markdown("""
-        Selamat datang pada aplikasi penelitian klasifikasi **Diabetes Mellitus**
-        menggunakan algoritma **AdaBoost** dan **XGBoost** dengan penerapan
-        teknik **Adaptive Synthetic Sampling (ADASYN)** untuk mengatasi
-        ketidakseimbangan kelas (*class imbalance*).
+        Selamat datang pada **Sistem Prediksi Diabetes Mellitus** berbasis
+        **Machine Learning** menggunakan algoritma **Extreme Gradient Boosting (XGBoost)**.
 
-        Aplikasi ini dikembangkan sebagai media implementasi sekaligus analisis
-        hasil penelitian sehingga pengguna dapat memahami proses pengolahan data,
-        pelatihan model, hingga evaluasi performa secara interaktif.
+        Model yang digunakan merupakan **model terbaik hasil penelitian**
+        berdasarkan proses evaluasi beberapa algoritma klasifikasi.
+        Sistem ini mampu melakukan prediksi risiko diabetes berdasarkan
+        data pemeriksaan pasien secara cepat dan otomatis.
         """)
 
     with col2:
@@ -144,16 +146,86 @@ if menu == "Home":
     st.divider()
 
     # =====================================================
-    # Ringkasan Penelitian
+    # Model
     # =====================================================
-    st.header("📌 Ringkasan Penelitian")
 
-    col1, col2, col3, col4 = st.columns(4)
+    st.header("🤖 Model Prediksi")
 
-    col1.metric("Dataset", "Diabetes")
-    col2.metric("Algoritma", "2 Model")
-    col3.metric("Oversampling", "ADASYN")
-    col4.metric("Evaluasi", "Accuracy, Precision, Recall, F1")
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric("Model", "XGBoost")
+
+    with col2:
+        st.metric("Status", "Siap Digunakan")
+
+    with col3:
+        st.metric("Output", "Diabetes / Non Diabetes")
+
+    st.info("""
+    Model XGBoost dipilih sebagai model implementasi karena memberikan
+    performa terbaik pada proses penelitian sehingga mampu menghasilkan
+    prediksi yang lebih akurat.
+    """)
+
+    st.divider()
+
+    # =====================================================
+    # Input Pasien
+    # =====================================================
+
+    st.header("📋 Data Pasien yang Dibutuhkan")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("""
+        **Data Demografi**
+        - Umur
+        - Jenis Kelamin
+        - Indeks Massa Tubuh (IMT)
+        - Lingkar Perut
+        """)
+
+    with col2:
+        st.markdown("""
+        **Data Pemeriksaan Klinis**
+        - Tekanan Darah Sistolik
+        - Tekanan Darah Diastolik
+        - HbA1c
+        - GDP (Glukosa Darah Puasa)
+        - GD2PP (Glukosa Darah 2 Jam Postprandial)
+        """)
+
+    st.divider()
+
+    # =====================================================
+    # Cara Kerja Sistem
+    # =====================================================
+
+    st.header("⚙️ Cara Kerja Sistem")
+
+    st.success("""
+    1️⃣ Masukkan data pasien
+
+            ↓
+
+    2️⃣ Sistem melakukan preprocessing data
+
+            ↓
+
+    3️⃣ Model XGBoost memproses data
+
+            ↓
+
+    4️⃣ Sistem menghasilkan prediksi
+
+            ↓
+
+    5️⃣ Hasil ditampilkan sebagai:
+       • Diabetes
+       • Non Diabetes
+    """)
 
     st.divider()
 
@@ -161,160 +233,47 @@ if menu == "Home":
     # Tentang Diabetes
     # =====================================================
 
-    st.header("🩺 Mengenal Diabetes Mellitus")
+    st.header("🩺 Tentang Diabetes Mellitus")
 
     with st.expander("Apa itu Diabetes Mellitus?"):
 
         st.write("""
-        Diabetes Mellitus merupakan penyakit kronis yang terjadi ketika tubuh tidak
-        mampu memproduksi insulin dalam jumlah yang cukup atau tidak dapat
-        menggunakan insulin secara efektif. Akibatnya kadar glukosa dalam darah
-        meningkat dan dapat menyebabkan berbagai komplikasi apabila tidak ditangani.
+        Diabetes Mellitus merupakan penyakit metabolik kronis yang ditandai
+        dengan tingginya kadar glukosa darah akibat gangguan produksi insulin,
+        kerja insulin, maupun keduanya.
         """)
 
-    with st.expander("Mengapa Deteksi Dini Penting?"):
+    with st.expander("Mengapa Prediksi Dini Penting?"):
 
         st.write("""
-        Deteksi dini diabetes sangat penting karena membantu tenaga medis melakukan
-        penanganan lebih cepat sehingga risiko komplikasi seperti penyakit jantung,
-        gagal ginjal, kerusakan saraf, hingga gangguan penglihatan dapat dikurangi.
+        Prediksi dini membantu tenaga kesehatan mengidentifikasi pasien yang
+        berisiko sehingga penanganan dapat dilakukan lebih cepat untuk
+        mencegah komplikasi yang lebih serius.
         """)
 
     st.divider()
 
     # =====================================================
-    # Tujuan Penelitian
+    # Output
     # =====================================================
 
-    st.header("🎯 Tujuan Penelitian")
+    st.header("📊 Hasil Prediksi")
 
     st.markdown("""
-    Penelitian ini bertujuan untuk:
+    Setelah seluruh data pasien dimasukkan, sistem akan memberikan:
 
-    - Membandingkan performa algoritma **AdaBoost** dan **XGBoost**.
-    - Mengetahui pengaruh teknik **ADASYN** terhadap data yang tidak seimbang.
-    - Menganalisis model terbaik berdasarkan nilai:
-        - Accuracy
-        - Precision
-        - Recall
-        - F1-Score
-    - Memberikan model klasifikasi diabetes yang memiliki performa tinggi.
+    ✅ Status Prediksi
+    - Diabetes
+    - Non Diabetes
+
+    ✅ Probabilitas Prediksi
+
+    ✅ Tingkat Keyakinan Model
     """)
 
     st.divider()
 
-    # =====================================================
-    # Workflow
-    # =====================================================
-
-    st.header("⚙️ Alur Penelitian")
-
-    st.info("""
-    Dataset
-        ↓
-    Data Cleaning
-        ↓
-    Normalisasi Data
-        ↓
-    Split Data Training & Testing
-        ↓
-    ADASYN (Opsional)
-        ↓
-    Training Model
-        ↓
-    Evaluasi Model
-        ↓
-    Perbandingan Hasil
-    """)
-
-    st.divider()
-
-    # =====================================================
-    # Algoritma
-    # =====================================================
-
-    st.header("🤖 Algoritma yang Digunakan")
-
-    tab1, tab2, tab3 = st.tabs(["AdaBoost", "XGBoost", "ADASYN"])
-
-    with tab1:
-        st.write("""
-        **AdaBoost** merupakan algoritma ensemble yang menggabungkan beberapa
-        weak learner menjadi model yang lebih kuat dengan memberikan bobot lebih
-        besar pada data yang sebelumnya salah diklasifikasikan.
-        """)
-
-    with tab2:
-        st.write("""
-        **XGBoost** adalah algoritma boosting berbasis gradient boosting yang
-        memiliki regularisasi sehingga mampu menghasilkan performa tinggi,
-        mengurangi overfitting, dan efisien dalam proses pelatihan.
-        """)
-
-    with tab3:
-        st.write("""
-        **ADASYN (Adaptive Synthetic Sampling)** merupakan teknik oversampling
-        yang menghasilkan data sintetis secara adaptif. Data minoritas yang lebih
-        sulit dipelajari akan memperoleh lebih banyak sampel sintetis sehingga
-        distribusi kelas menjadi lebih seimbang.
-        """)
-
-    st.divider()
-
-    # =====================================================
-    # Evaluasi
-    # =====================================================
-
-    st.header("📈 Metrik Evaluasi")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.success("""
-        ✔ Accuracy
-
-        Mengukur persentase prediksi yang benar.
-        """)
-
-        st.success("""
-        ✔ Precision
-
-        Mengukur ketepatan prediksi kelas positif.
-        """)
-
-    with col2:
-        st.success("""
-        ✔ Recall
-
-        Mengukur kemampuan model menemukan seluruh data positif.
-        """)
-
-        st.success("""
-        ✔ F1-Score
-
-        Rata-rata harmonis antara Precision dan Recall.
-        """)
-
-    st.divider()
-
-    # =====================================================
-    # Cara Menggunakan
-    # =====================================================
-
-    st.header("🚀 Cara Menggunakan Aplikasi")
-
-    st.markdown("""
-    1. Pilih menu **Dataset** untuk melihat data.
-    2. Lakukan **Preprocessing**.
-    3. Pilih model yang akan dilatih.
-    4. Jalankan proses training.
-    5. Lihat hasil evaluasi dan confusion matrix.
-    6. Bandingkan performa seluruh model.
-    """)
-
-    st.divider()
-
-    st.caption("© 2026 | Aplikasi Penelitian Klasifikasi Diabetes menggunakan AdaBoost, XGBoost, dan ADASYN")
+    st.caption("Sistem Prediksi Diabetes Mellitus | XGBoost Machine Learning")
 
 # ======================= DATASET =======================
 elif menu == "Dataset":
